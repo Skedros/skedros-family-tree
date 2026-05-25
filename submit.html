@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit a story · The Skedros Family Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/submit.css">
+</head>
+<body class="submit-body">
+
+<header class="banner">
+  <div class="banner-left">
+    <span class="eyebrow">Greek Archives · University of Utah</span>
+    <h1 class="title"><a href="index.html">The <em>Skedros</em> Family Tree</a></h1>
+    <p class="subtitle">Share a story, a photograph, or a correction</p>
+  </div>
+  <nav class="banner-nav" aria-label="Site navigation">
+    <a href="index.html">Tree</a>
+    <a href="submit.html" class="current">Submit a story</a>
+  </nav>
+</header>
+
+<main class="submit-page">
+  <article class="submit-intro">
+    <h2>Help us fill in the tree.</h2>
+    <p>
+      This site is built from family records, the 1974 Helen Skedros Rizos interview,
+      and conversations with relatives. If you have stories, photographs, exact dates,
+      or corrections that would help — please send them here. Everything goes straight
+      to Athan to be reviewed and added to the site.
+    </p>
+    <p class="small-print">
+      You don't need to fill in every field. The most useful things are stories in
+      your own words, photos with names on the back, and clear corrections of anything
+      we've gotten wrong.
+    </p>
+  </article>
+
+  <!--
+    Form goes to FormSubmit.co, which emails the submission (plus any uploaded files)
+    to the address in the action URL. The first submission triggers a one-time
+    confirmation email to that address; click the link inside it and all future
+    submissions arrive directly. See README.md for setup details.
+  -->
+  <form id="submit-form"
+        class="submit-form"
+        action="https://formsubmit.co/REPLACE_WITH_YOUR_EMAIL"
+        method="POST"
+        enctype="multipart/form-data">
+
+    <!-- FormSubmit configuration (these get stripped, never emailed) -->
+    <input type="hidden" name="_subject" value="Skedros tree submission">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="thanks.html">
+    <!-- Honeypot anti-spam field: bots fill it in, humans don't see it -->
+    <input type="text" name="_honey" style="display:none">
+
+    <fieldset>
+      <legend>About the family member</legend>
+      <div class="field">
+        <label for="person_name">Their full name <span class="required">*</span></label>
+        <input id="person_name" name="person_name" type="text" required
+               placeholder="e.g. Helen Skedros Rizos">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="person_alt">Greek name or other name</label>
+          <input id="person_alt" name="person_alt" type="text"
+                 placeholder="e.g. née Skedros, or Ελένη">
+        </div>
+        <div class="field">
+          <label for="person_dates">Birth – death (if known)</label>
+          <input id="person_dates" name="person_dates" type="text"
+                 placeholder="e.g. 1893 - 1975">
+        </div>
+      </div>
+      <div class="field">
+        <label for="relationship">How are they related to the Skedros family?</label>
+        <input id="relationship" name="relationship" type="text"
+               placeholder="e.g. Aunt of Greg Skedros, mother of Dino Rizos">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Their story</legend>
+      <div class="field">
+        <label for="biography">Biography, stories, memories, facts</label>
+        <textarea id="biography" name="biography" rows="12"
+          placeholder="Write as much or as little as you'd like — when and where they were born, what they did for a living, what they were known for in the family, the stories you grew up hearing. Anything helps."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Corrections to the existing tree</legend>
+      <div class="field">
+        <label for="corrections">What should we fix?</label>
+        <textarea id="corrections" name="corrections" rows="6"
+          placeholder="e.g. 'Iros' is actually 'Irodion'. The candy store in Omaha was on Howard Street, not Farnam. My grandmother's mother was named Soultana, not Kostantina."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Photos and documents</legend>
+      <div class="field">
+        <label for="files">Upload photographs, scans, or documents</label>
+        <input id="files" name="attachment" type="file" multiple
+               accept="image/*,application/pdf,.doc,.docx,.txt,.heic">
+        <p class="hint">
+          You can attach several files at once. Photos with names written on the back,
+          baptism certificates, ship manifests, old letters — anything is useful.
+        </p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your information</legend>
+      <div class="field-row">
+        <div class="field">
+          <label for="submitter_name">Your name <span class="required">*</span></label>
+          <input id="submitter_name" name="submitter_name" type="text" required
+                 placeholder="So we know who to thank">
+        </div>
+        <div class="field">
+          <label for="submitter_email">Your email <span class="required">*</span></label>
+          <input id="submitter_email" name="submitter_email" type="email" required
+                 placeholder="In case we need to ask a follow-up">
+        </div>
+      </div>
+      <div class="field">
+        <label for="submitter_relation">How are you related to the family?</label>
+        <input id="submitter_relation" name="submitter_relation" type="text"
+               placeholder="e.g. Greg Skedros's cousin, family friend">
+      </div>
+    </fieldset>
+
+    <div class="submit-row">
+      <button type="submit" class="submit-button">Send to Athan</button>
+      <p class="submit-disclaimer">
+        Submissions are emailed directly to Athan. Nothing is published to the site
+        automatically — every entry is reviewed before it goes in.
+      </p>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>

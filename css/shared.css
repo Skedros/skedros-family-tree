@@ -1,0 +1,106 @@
+/* ============================================================================
+   Skedros Family Tree — SHARED STYLES
+   Palette, typography, banner with navigation. Loaded by every page.
+   ========================================================================== */
+
+:root {
+  /* Dark editorial palette: parchment cards on aged-leather background */
+  --bg: #161310;
+  --bg-deep: #0c0a08;
+  --paper: #f5ecd6;
+  --paper-edge: #e6dabd;
+  --ink: #1a1612;
+  --ink-soft: #5d5247;
+  --rule: #4a4030;
+  --rule-soft: #2e271d;
+  --rule-paper: #b8a98e;
+  --line: #8a7a4e;
+  --line-strong: #d4b86a;
+  --marriage: #d18840;
+  --marriage-soft: #e0a36b;
+  --gold: #f0c64a;
+  --gold-glow: rgba(240, 198, 74, 0.32);
+  --path-glow: rgba(244, 206, 93, 0.45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at 25% 15%, rgba(212, 184, 106, 0.10), transparent 55%),
+    radial-gradient(ellipse at 78% 85%, rgba(209, 136, 64, 0.07), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 230, 170, 0.02), transparent 70%);
+}
+
+/* ---------- Banner with site navigation ---------- */
+.banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: 14px 24px 12px;
+  background: linear-gradient(180deg,
+                              rgba(22, 19, 16, 0.97) 0%,
+                              rgba(22, 19, 16, 0.85) 70%,
+                              transparent 100%);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(212, 184, 106, 0.15);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 12px;
+}
+.banner-left { display: flex; flex-direction: column; gap: 2px; }
+.eyebrow {
+  font-family: 'Cormorant SC', serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.32em;
+  color: #b9a878; text-transform: uppercase;
+}
+.title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(22px, 3.4vw, 30px);
+  letter-spacing: 0.02em; color: #f5ecd6; line-height: 1.1;
+}
+.title a { color: inherit; text-decoration: none; }
+.title em { font-style: italic; font-weight: 400; color: var(--marriage); }
+.subtitle {
+  font-family: 'Inter', sans-serif; font-size: 11px;
+  color: #b9a878; letter-spacing: 0.04em; margin-top: 2px;
+}
+
+.banner-nav {
+  display: flex; gap: 18px; align-items: center;
+  font-family: 'Cormorant SC', serif; font-weight: 500;
+}
+.banner-nav a {
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #b9a878; text-decoration: none;
+  padding: 6px 4px; border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.banner-nav a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.banner-nav a.current {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------- Typography helpers ---------- */
+.section-title {
+  font-family: 'Cormorant SC', serif; font-weight: 600;
+  font-size: 11px; letter-spacing: 0.28em;
+  color: var(--gold); text-transform: uppercase;
+  padding-bottom: 8px; margin-bottom: 14px;
+  border-bottom: 1px solid rgba(212, 184, 106, 0.2);
+}
+
+/* ---------- Banner responsive ---------- */
+@media (max-width: 720px) {
+  .banner { padding: 10px 14px 8px; flex-direction: column; align-items: flex-start; }
+  .banner-nav { gap: 14px; }
+  .title { font-size: 20px; }
+}

@@ -1,0 +1,176 @@
+/* ============================================================================
+   Skedros Family Tree — SUBMISSION PAGE STYLES
+   ========================================================================== */
+
+html, body { min-height: 100%; overflow: auto; }
+body.submit-body { color: var(--paper); }
+
+.submit-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 110px 32px 80px;
+}
+@media (max-width: 720px) {
+  .submit-page { padding: 130px 18px 60px; }
+}
+
+/* ---------- Intro ---------- */
+.submit-intro {
+  margin-bottom: 36px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(212, 184, 106, 0.18);
+}
+.submit-intro h2 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(26px, 3.6vw, 36px);
+  color: #f5ecd6;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.submit-intro p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #d4c096;
+  margin-bottom: 12px;
+}
+.submit-intro .small-print {
+  font-size: 14px;
+  color: #b9a878;
+  font-style: italic;
+}
+
+/* ---------- Form ---------- */
+.submit-form {
+  display: flex; flex-direction: column; gap: 28px;
+}
+
+fieldset {
+  border: 1px solid rgba(212, 184, 106, 0.18);
+  background: rgba(245, 236, 214, 0.03);
+  padding: 22px 24px 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+@media (max-width: 720px) {
+  fieldset { padding: 18px 16px 16px; }
+}
+
+legend {
+  font-family: 'Cormorant SC', serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding: 0 10px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+label {
+  font-family: 'Cormorant SC', serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b9a878;
+}
+.required { color: var(--marriage); }
+
+input[type="text"], input[type="email"], textarea {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  background: var(--bg-deep);
+  border: 1px solid rgba(212, 184, 106, 0.22);
+  color: #f5ecd6;
+  padding: 10px 12px;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input::placeholder, textarea::placeholder {
+  color: #6e5f44;
+  font-style: italic;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+textarea { resize: vertical; line-height: 1.55; }
+
+input[type="file"] {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  background: var(--bg-deep);
+  border: 1px dashed rgba(212, 184, 106, 0.3);
+  color: #d4c096;
+  padding: 12px;
+  width: 100%;
+  cursor: pointer;
+}
+input[type="file"]::-webkit-file-upload-button {
+  font-family: 'Cormorant SC', serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(212, 184, 106, 0.15);
+  border: 1px solid rgba(212, 184, 106, 0.3);
+  color: var(--gold);
+  padding: 6px 12px;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: rgba(212, 184, 106, 0.25);
+}
+
+.hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #8a7960;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* ---------- Submit row ---------- */
+.submit-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 8px;
+}
+.submit-button {
+  font-family: 'Cormorant SC', serif;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--bg);
+  border: 1px solid var(--gold);
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.submit-button:hover {
+  background: #f7d669;
+  border-color: #f7d669;
+  box-shadow: 0 0 0 6px var(--gold-glow);
+}
+.submit-disclaimer {
+  flex: 1; min-width: 280px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #8a7960;
+  line-height: 1.5;
+}

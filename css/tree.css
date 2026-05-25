@@ -1,0 +1,303 @@
+/* ============================================================================
+   Skedros Family Tree — TREE PAGE STYLES
+   Canvas, person cards, descent/marriage lines, branch labels, detail panel.
+   ========================================================================== */
+
+html, body { height: 100%; overflow: hidden; }
+
+/* ---------- Viewport and canvas ---------- */
+.viewport {
+  position: absolute; inset: 0;
+  overflow: hidden; touch-action: none;
+  padding-top: 70px;          /* clear the fixed banner */
+  cursor: grab;
+}
+.viewport.dragging { cursor: grabbing; }
+
+.canvas {
+  position: absolute; top: 0; left: 0;
+  /* width/height are set inline by JS from CANVAS constant */
+  transform-origin: 0 0;
+  background-image:
+    linear-gradient(to right,  rgba(212, 184, 106, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 184, 106, 0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* ---------- Generation rules and labels (left-side captions) ---------- */
+.gen-rule {
+  position: absolute; left: 0; width: 100%; height: 1px;
+  background: var(--rule-soft); pointer-events: none;
+}
+.gen-label {
+  position: absolute; left: 24px; transform: translateY(-50%);
+  font-family: 'Cormorant SC', serif; font-size: 11px;
+  letter-spacing: 0.3em; color: #a59672;
+  text-transform: uppercase; background: var(--bg);
+  padding: 0 10px; pointer-events: none;
+}
+
+/* ---------- Branch / section labels on the canvas ----------
+   These are the headers like "Skedros", "Pappathanacio", "Avgares clan".
+   Critical: they MUST sit above the SVG descent/marriage lines so the
+   text never gets bisected. We pin them to z-index 8 (between SVG=auto
+   and cards=10) and give them a soft radial halo that mask any lines
+   passing through. */
+.branch-label {
+  position: absolute;
+  font-family: 'Cormorant SC', serif; font-weight: 500;
+  font-size: 13px; letter-spacing: 0.32em;
+  color: var(--gold); text-transform: uppercase;
+  text-align: center; transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 8;
+  padding: 10px 26px 8px;
+  background: radial-gradient(ellipse at center,
+                              var(--bg) 35%,
+                              rgba(22, 19, 16, 0.85) 60%,
+                              transparent 78%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7),
+               0 0 12px rgba(22, 19, 16, 0.9);
+}
+.branch-label::after {
+  content: ''; display: block; width: 32px; height: 1px;
+  background: rgba(212, 184, 106, 0.5); margin: 7px auto 0;
+}
+
+/* ---------- SVG lines (descent + marriage) ---------- */
+svg.lines {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; pointer-events: none;
+}
+.l-descent      { stroke: var(--line-strong); stroke-width: 2.2; fill: none; opacity: 1; stroke-linecap: round; stroke-linejoin: round; }
+.l-marriage     { stroke: var(--marriage); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.l-marriage-tick{ stroke: var(--marriage); stroke-width: 2.4; fill: none; stroke-linecap: round; }
+.dot-descent    { fill: var(--line-strong); }
+.dot-marriage   { fill: var(--marriage); }
+
+/* ---------- Person cards ---------- */
+.person {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: var(--paper);
+  border: 1px solid var(--rule-paper);
+  padding: 9px 12px 8px;
+  min-width: 130px;
+  max-width: 178px;
+  text-align: center;
+  z-index: 10;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 1px 0 rgba(212, 184, 106, 0.08), 0 4px 14px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+.person:hover {
+  box-shadow: 0 0 0 1px rgba(212, 184, 106, 0.25), 0 8px 26px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -50%) translateY(-2px);
+  z-index: 20;
+}
+.person .name {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 14px; line-height: 1.18; color: var(--ink);
+  letter-spacing: 0.005em;
+}
+.person .alt {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-weight: 400; font-size: 11px; color: var(--ink-soft);
+  margin-top: 1px; line-height: 1.2;
+}
+.person .dates {
+  font-family: 'Inter', sans-serif; font-size: 9.5px;
+  color: var(--ink-soft); letter-spacing: 0.04em; margin-top: 4px;
+}
+.person .note {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 11px; color: var(--ink-soft); margin-top: 3px; line-height: 1.2;
+}
+.person.unknown {
+  background: repeating-linear-gradient(
+    45deg, var(--paper), var(--paper) 6px,
+    var(--paper-edge) 6px, var(--paper-edge) 12px
+  );
+  border-style: dashed;
+}
+.person.unknown .name { color: var(--ink-soft); font-style: italic; }
+.person.deceased-young .name::after {
+  content: ' \2020'; color: var(--ink-soft); font-weight: 300;
+}
+
+/* ---------- Highlights ---------- */
+.person.hl-dimmed { opacity: 0.32; }
+.person.hl-self {
+  outline: 2.5px solid var(--marriage); outline-offset: 2px;
+  box-shadow: 0 0 0 7px rgba(209, 136, 64, 0.18), 0 6px 22px rgba(26, 22, 18, 0.18);
+  z-index: 25;
+}
+.person.hl-parent  { outline: 2px solid #345e85; outline-offset: 1px; box-shadow: 0 0 0 5px rgba(52, 94, 133, 0.15); }
+.person.hl-spouse  { outline: 2px solid var(--marriage); outline-offset: 1px; box-shadow: 0 0 0 5px rgba(209, 136, 64, 0.13); }
+.person.hl-sibling { outline: 2px dashed #4a6f3a; outline-offset: 2px; }
+.person.hl-child   { outline: 2px solid #8a6a3a; outline-offset: 1px; box-shadow: 0 0 0 5px rgba(138, 106, 58, 0.14); }
+
+/* Core marker: warm gold edge always */
+.person.core {
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(180deg, #fcf3da 0%, #f5ecd6 100%);
+  box-shadow: 0 0 0 1px var(--gold-glow), 0 1px 0 rgba(212, 184, 106, 0.12), 0 5px 16px rgba(0, 0, 0, 0.5);
+}
+.person.core .name { font-weight: 600; }
+
+/* Path-to-core highlight */
+.person.path-hl {
+  opacity: 1;
+  z-index: 26;
+  outline: 2.5px solid var(--gold);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 8px var(--path-glow), 0 8px 28px rgba(0, 0, 0, 0.7);
+}
+.canvas.path-mode .person:not(.path-hl):not(.hl-self):not(.hl-parent):not(.hl-spouse):not(.hl-sibling):not(.hl-child) {
+  opacity: 0.42;
+}
+
+/* ---------- Zoom + reset controls ---------- */
+.controls { display: flex; gap: 6px; align-items: center; font-family: 'Inter', sans-serif; }
+.controls button {
+  font-family: 'Cormorant SC', serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  background: transparent; border: 1px solid rgba(212, 184, 106, 0.3);
+  color: #b9a878; padding: 6px 12px;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.controls button:hover { background: rgba(212, 184, 106, 0.1); color: var(--gold); border-color: var(--gold); }
+.controls .zoom-display {
+  font-size: 11px; color: #b9a878; min-width: 50px; text-align: center;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Detail panel ---------- */
+.detail-panel {
+  position: fixed; top: 80px; right: 0; bottom: 0;
+  width: 400px; max-width: 100vw;
+  background: var(--paper);
+  border-left: 1px solid var(--rule-paper);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.4);
+  transform: translateX(110%);
+  transition: transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 40; overflow-y: auto; display: flex; flex-direction: column;
+}
+.detail-panel.open { transform: translateX(0); }
+.detail-close {
+  position: absolute; top: 12px; right: 14px; z-index: 5;
+  background: rgba(245, 236, 214, 0.92); border: 1px solid var(--rule-paper);
+  font-size: 22px; line-height: 1; cursor: pointer;
+  width: 32px; height: 32px; padding: 0; color: var(--ink);
+  transition: all 0.15s ease;
+}
+.detail-close:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.detail-photo {
+  width: 100%; height: 220px;
+  background: var(--bg-deep);
+  background-size: cover; background-position: center;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+}
+.detail-photo.placeholder::after {
+  content: attr(data-initial);
+  font-family: 'Cormorant SC', serif;
+  font-size: 78px; font-weight: 500;
+  color: #6e5f44; letter-spacing: 0.04em;
+}
+.detail-header { padding: 18px 24px 14px; border-bottom: 1px solid var(--rule-soft); }
+.detail-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 26px; line-height: 1.15;
+  color: var(--ink); letter-spacing: 0.005em;
+}
+.detail-name .dagger { color: var(--ink-soft); font-weight: 300; }
+.detail-alt   { font-style: italic; color: var(--ink-soft); font-size: 14px; margin-top: 3px; }
+.detail-dates { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
+.detail-note  { font-style: italic; color: var(--ink-soft); font-size: 13px; margin-top: 4px; }
+
+.detail-relations { padding: 14px 24px 4px; }
+.relation-block { margin-bottom: 14px; }
+.relation-block h4 {
+  font-family: 'Cormorant SC', serif; font-weight: 600;
+  font-size: 10.5px; letter-spacing: 0.24em;
+  color: var(--ink); text-transform: uppercase; margin-bottom: 7px;
+}
+.relation-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.relation-list button {
+  background: var(--paper-edge); border: 1px solid var(--rule-paper);
+  color: var(--ink); padding: 5px 11px;
+  font-size: 13px; font-family: 'Cormorant Garamond', serif;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.relation-list button:hover { background: var(--marriage); color: var(--paper); border-color: var(--marriage); }
+.relation-list em { color: var(--ink-soft); font-size: 12px; padding: 4px 0; font-style: italic; }
+
+.detail-connection {
+  padding: 14px 24px 4px;
+  border-top: 1px solid var(--rule-soft);
+}
+.detail-connection h4 {
+  font-family: 'Cormorant SC', serif; font-weight: 600;
+  font-size: 10.5px; letter-spacing: 0.24em;
+  color: var(--ink); text-transform: uppercase; margin-bottom: 10px;
+}
+.path-chain {
+  display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
+  line-height: 1.45;
+}
+.path-chain button {
+  background: var(--paper-edge); border: 1px solid var(--rule-paper);
+  color: var(--ink); padding: 4px 10px;
+  font-size: 13px; font-family: 'Cormorant Garamond', serif;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.path-chain button.is-core {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, #fcf3da 0%, #f5ecd6 100%);
+  font-weight: 600;
+}
+.path-chain button:hover { background: var(--marriage); color: var(--paper); border-color: var(--marriage); }
+.path-arrow {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  color: var(--ink-soft); font-size: 12px; padding: 0 2px;
+}
+.path-empty { font-style: italic; color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+
+.detail-bio-section {
+  padding: 16px 24px 22px;
+  border-top: 1px solid var(--rule-soft);
+  margin-top: 6px;
+}
+.detail-bio-section h4 {
+  font-family: 'Cormorant SC', serif; font-weight: 600;
+  font-size: 10.5px; letter-spacing: 0.24em;
+  color: var(--ink); text-transform: uppercase; margin-bottom: 10px;
+}
+#detail-bio { font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+#detail-bio p { margin-bottom: 10px; }
+#detail-bio em { color: var(--ink-soft); }
+
+.detail-profile-link {
+  display: block;
+  margin: 0 24px 28px;
+  padding: 10px 14px;
+  text-align: center;
+  background: var(--ink); color: var(--paper);
+  text-decoration: none;
+  font-family: 'Cormorant SC', serif;
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid var(--ink);
+  transition: all 0.15s ease;
+}
+.detail-profile-link:hover {
+  background: var(--marriage); border-color: var(--marriage);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .detail-panel { width: 100vw; top: 100px; }
+  .controls { font-size: 10px; }
+  .controls button { padding: 5px 9px; }
+}

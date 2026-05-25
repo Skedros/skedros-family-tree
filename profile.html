@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile · The Skedros Family Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/profile.css">
+</head>
+<body class="profile-body">
+
+<header class="banner">
+  <div class="banner-left">
+    <span class="eyebrow">Greek Archives · University of Utah</span>
+    <h1 class="title"><a href="index.html">The <em>Skedros</em> Family Tree</a></h1>
+    <p class="subtitle">A profile page</p>
+  </div>
+  <nav class="banner-nav" aria-label="Site navigation">
+    <a href="index.html">Tree</a>
+    <a href="submit.html">Submit a story</a>
+  </nav>
+</header>
+
+<main class="profile-page">
+
+  <!-- "Not found" message, shown only when the requested id doesn't exist -->
+  <section id="not-found" class="not-found" hidden>
+    <h2>This person isn't in the tree yet.</h2>
+    <p>The id <code id="missing-id"></code> doesn't match any entry in the family data.</p>
+    <p><a href="index.html" class="link-button">← Back to the tree</a></p>
+  </section>
+
+  <!-- Full profile, populated by profile.js -->
+  <article id="profile" hidden>
+
+    <p class="back-row">
+      <a href="index.html" class="back-link">← Back to the tree</a>
+    </p>
+
+    <section class="profile-hero">
+      <div class="hero-photo" id="hero-photo">
+        <div class="hero-placeholder" id="hero-placeholder" data-initial="?"></div>
+        <img id="hero-image" alt="" hidden>
+      </div>
+      <div class="hero-text">
+        <p class="hero-eyebrow" id="hero-eyebrow"></p>
+        <h1 class="hero-name" id="hero-name"></h1>
+        <p class="hero-alt" id="hero-alt"></p>
+        <p class="hero-dates" id="hero-dates"></p>
+        <p class="hero-note" id="hero-note"></p>
+      </div>
+    </section>
+
+    <!-- Gallery: thumbnail strip beneath the hero photo. Only shown if there's
+         more than one photo, or if you want to give an explicit view. -->
+    <section class="gallery" id="gallery" hidden>
+      <h2 class="section-title">Gallery</h2>
+      <div class="gallery-frame">
+        <button class="gallery-nav prev" id="gallery-prev" aria-label="Previous photo">‹</button>
+        <img class="gallery-main" id="gallery-main" alt="">
+        <button class="gallery-nav next" id="gallery-next" aria-label="Next photo">›</button>
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      <p class="gallery-caption" id="gallery-caption"></p>
+    </section>
+
+    <section class="biography">
+      <h2 class="section-title">Biography</h2>
+      <div id="biography-text" class="biography-body">
+        <p class="empty"><em>No biography on file yet — if you have stories or facts about this person, please
+        <a href="submit.html">share them with us</a>.</em></p>
+      </div>
+    </section>
+
+    <section class="family">
+      <h2 class="section-title">Family</h2>
+      <div class="family-grid">
+        <div class="family-block">
+          <h3>Parents</h3>
+          <div class="family-list" id="family-parents"></div>
+        </div>
+        <div class="family-block">
+          <h3>Spouse</h3>
+          <div class="family-list" id="family-spouse"></div>
+        </div>
+        <div class="family-block">
+          <h3>Siblings</h3>
+          <div class="family-list" id="family-siblings"></div>
+        </div>
+        <div class="family-block">
+          <h3>Children</h3>
+          <div class="family-list" id="family-children"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="connection">
+      <h2 class="section-title">Connection to the Skedros Family</h2>
+      <div id="connection-content"></div>
+    </section>
+
+    <section class="help-fill-in">
+      <p>
+        Know more about this person, or see something we should correct?
+        <a href="submit.html" class="link-button">Send a story or correction →</a>
+      </p>
+    </section>
+
+  </article>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/family.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

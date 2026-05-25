@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>The Skedros Family Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="css/tree.css">
+</head>
+<body>
+
+<header class="banner">
+  <div class="banner-left">
+    <span class="eyebrow">Greek Archives · University of Utah</span>
+    <h1 class="title"><a href="index.html">The <em>Skedros</em> Family Tree</a></h1>
+    <p class="subtitle">Compiled from family records and the 1974 Helen Skedros Rizos interview</p>
+  </div>
+  <nav class="banner-nav" aria-label="Site navigation">
+    <a href="index.html" class="current">Tree</a>
+    <a href="submit.html">Submit a story</a>
+  </nav>
+  <div class="controls">
+    <button id="zoom-out" title="Zoom out">−</button>
+    <span class="zoom-display" id="zoom-display">100%</span>
+    <button id="zoom-in" title="Zoom in">+</button>
+    <button id="reset" title="Fit to screen">Fit</button>
+  </div>
+</header>
+
+<aside class="detail-panel" id="detail-panel" aria-hidden="true">
+  <button class="detail-close" id="detail-close" aria-label="Close">&times;</button>
+  <div class="detail-photo placeholder" id="detail-photo" data-initial="?"></div>
+  <div class="detail-header">
+    <h2 class="detail-name" id="detail-name"></h2>
+    <p class="detail-alt" id="detail-alt"></p>
+    <p class="detail-dates" id="detail-dates"></p>
+    <p class="detail-note" id="detail-note"></p>
+  </div>
+  <div class="detail-relations">
+    <div class="relation-block">
+      <h4>Parents</h4>
+      <div id="detail-parents" class="relation-list"></div>
+    </div>
+    <div class="relation-block">
+      <h4>Spouse</h4>
+      <div id="detail-spouse" class="relation-list"></div>
+    </div>
+    <div class="relation-block">
+      <h4>Siblings</h4>
+      <div id="detail-siblings" class="relation-list"></div>
+    </div>
+    <div class="relation-block">
+      <h4>Children</h4>
+      <div id="detail-children" class="relation-list"></div>
+    </div>
+  </div>
+  <div class="detail-connection">
+    <h4>Connection to the Skedros Family</h4>
+    <div id="detail-path"></div>
+  </div>
+  <div class="detail-bio-section">
+    <h4>Biography</h4>
+    <div id="detail-bio"></div>
+  </div>
+  <a class="detail-profile-link" id="detail-profile-link" href="#">View full profile →</a>
+</aside>
+
+<div class="viewport" id="viewport">
+  <div class="canvas" id="canvas">
+    <svg class="lines" id="lines"></svg>
+    <div id="people"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/family.js"></script>
+<script src="js/tree.js"></script>
+</body>
+</html>
