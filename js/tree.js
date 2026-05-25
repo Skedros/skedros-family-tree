@@ -405,3 +405,54 @@ document.getElementById('reset').addEventListener('click', fitToScreen);
 
 window.addEventListener('load', () => { setTimeout(fitToScreen, 50); });
 window.addEventListener('resize', () => fitToScreen());
+
+/* ============================================================================
+   SEARCH PANEL HOOK — pans the canvas to the chosen person and opens detail.
+   ========================================================================== */
+
+function panToPerson(personId, smooth = true) {
+  const p = peopleMap[personId];
+  if (!p) return;
+  // Pick a comfortable zoom level if currently zoomed way out
+  const targetScale = Math.max(state.scale, 0.65);
+  state.scale = targetScale;
+  // Center the viewport on the person's card
+  const vw = viewport.offsetWidth;
+  const vh = viewport.offsetHeight;
+  state.x = vw / 2 - p.x * targetScale;
+  state.y = vh / 2 - p.y * targetScale;
+  if (smooth) {
+    canvasEl.style.transition = 'transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)';
+    applyTransform();
+    setTimeout(() => { canvasEl.style.transition = ''; }, 420);
+  } else {
+    applyTransform();
+  }
+  // Open detail panel after the pan settles
+  setTimeout(() => showDetail(personId), smooth ? 320 : 50);
+}
+
+// Wire up the search panel: each result is a button that, when clicked,
+// closes the search panel and pans to that person on the canvas.
+const searchPanel = buildSearchPanel({
+  makeResultHTML: (p) => {
+    const isCore = coreSet.has(p.id);
+    return `<button class="search-result${isCore ? ' is-core' : ''}" data-id="${p.id}">
+      ${escapeHtml(p.name)}
+      ${p.alt   ? `<div class="meta">${escapeHtml(p.alt)}</div>`   : ''}
+      ${p.dates ? `<div class="meta">${escapeHtml(p.dates)}</div>` : ''}
+    </button>`;
+  },
+  onSelect: (id) => {
+    searchPanel.close();
+    panToPerson(id);
+  },
+});
+
+// Keyboard shortcut: "/" focuses the search panel
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    searchPanel.open();
+  }
+});

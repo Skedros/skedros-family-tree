@@ -133,3 +133,93 @@ function escapeHtml(s) {
 function getPerson(id) {
   return peopleMap[id] || null;
 }
+
+/* ============================================================================
+   SEARCH PANEL — shared renderer
+   ----------------------------------------------------------------------------
+   buildSearchPanel({ onSelect }) wires up the search panel that's been added
+   to the page (search-panel, search-input, search-list, search-count, etc.).
+   The `onSelect` callback receives the chosen person's id; the caller decides
+   what to do with it — tree.js pans to them, profile.js navigates.
+   ========================================================================== */
+
+function buildSearchPanel({ onSelect, makeResultHTML }) {
+  const panel = document.getElementById('search-panel');
+  const toggle = document.getElementById('search-toggle');
+  const closeBtn = document.getElementById('search-close');
+  const input = document.getElementById('search-input');
+  const list = document.getElementById('search-list');
+  const countEl = document.getElementById('search-count');
+  if (!panel || !toggle || !input || !list) return;
+
+  // Sort the people once. Names with diacritics handled by localeCompare.
+  const sorted = people.slice().sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+  );
+
+  function render(filter = '') {
+    const q = filter.trim().toLowerCase();
+    const matches = sorted.filter(p => {
+      if (!q) return true;
+      if (p.name.toLowerCase().includes(q)) return true;
+      if (p.alt && p.alt.toLowerCase().includes(q)) return true;
+      return false;
+    });
+
+    countEl.textContent = q
+      ? `${matches.length} of ${people.length} match`
+      : `${people.length} people`;
+
+    if (matches.length === 0) {
+      list.innerHTML = '<p class="search-empty">No matches. Try a different spelling, or search by Greek name.</p>';
+      return;
+    }
+
+    const chunks = [];
+    let lastLetter = null;
+    for (const p of matches) {
+      const letter = p.name.charAt(0).toUpperCase();
+      if (!q && letter !== lastLetter) {
+        chunks.push(`<div class="letter-divider">${letter}</div>`);
+        lastLetter = letter;
+      }
+      chunks.push(makeResultHTML(p));
+    }
+    list.innerHTML = chunks.join('');
+  }
+
+  // Live filter as user types
+  input.addEventListener('input', e => render(e.target.value));
+
+  // Click on a result delegates to the caller
+  list.addEventListener('click', e => {
+    const el = e.target.closest('[data-id]');
+    if (!el) return;
+    const id = el.dataset.id;
+    if (onSelect) onSelect(id, e);
+  });
+
+  // Open / close
+  function open() {
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+    setTimeout(() => { input.focus(); input.select(); }, 150);
+  }
+  function close() {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+  toggle.addEventListener('click', () => {
+    panel.classList.contains('open') ? close() : open();
+  });
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) close();
+  });
+
+  // Build initial list
+  render('');
+
+  // Expose a close fn for callers who want to dismiss after selection
+  return { open, close, render };
+}

@@ -155,3 +155,18 @@
     show(0);
   }
 })();
+
+/* ============================================================================
+   SEARCH PANEL — clicking a result navigates to that person's profile page.
+   ========================================================================== */
+buildSearchPanel({
+  makeResultHTML: (p) => {
+    const isCore = coreSet.has(p.id);
+    return `<a class="search-result${isCore ? ' is-core' : ''}" data-id="${p.id}" href="profile.html?id=${encodeURIComponent(p.id)}">
+      ${escapeHtml(p.name)}
+      ${p.alt   ? `<div class="meta">${escapeHtml(p.alt)}</div>`   : ''}
+      ${p.dates ? `<div class="meta">${escapeHtml(p.dates)}</div>` : ''}
+    </a>`;
+  },
+  onSelect: () => { /* the <a href> handles navigation natively */ },
+});

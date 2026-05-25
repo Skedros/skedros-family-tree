@@ -19,6 +19,7 @@
     <p class="subtitle">Compiled from family records and the 1974 Helen Skedros Rizos interview</p>
   </div>
   <nav class="banner-nav" aria-label="Site navigation">
+    <button class="banner-nav-button" id="search-toggle" type="button">Find a person</button>
     <a href="index.html" class="current">Tree</a>
     <a href="submit.html">Submit a story</a>
   </nav>
@@ -66,6 +67,14 @@
     <div id="detail-bio"></div>
   </div>
   <a class="detail-profile-link" id="detail-profile-link" href="#">View full profile →</a>
+</aside>
+
+<aside class="search-panel" id="search-panel" aria-hidden="true">
+  <button class="search-close" id="search-close" aria-label="Close search">&times;</button>
+  <h3 class="search-title">Find a person</h3>
+  <input type="text" id="search-input" placeholder="Type a name…" autocomplete="off" spellcheck="false">
+  <p class="search-count" id="search-count"></p>
+  <div class="search-list" id="search-list"></div>
 </aside>
 
 <div class="viewport" id="viewport">
