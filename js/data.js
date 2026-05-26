@@ -1015,6 +1015,24 @@ const crossClusterLinks = [
 
 const CORE_SEEDS = ['greg_s', 'jenny_p', 'yannoula_p', 'athanasios_p', 'john_gouz_sr', 'maria_dem', 'james_k', 'angeline_l', 'constantine_s', 'evgenia'];
 
+/* ----------- Family branch clusters used for the "Filter by family" tabs -----------
+   Each cluster is identified by a seed person id. The cluster is then expanded by
+   BFS over marriages + descents (without crossClusterLinks) to capture everyone
+   in that connected branch of the tree. Add or rename entries here to change the
+   tabs that appear in the navigation. */
+const CLUSTER_DEFS = [
+  { id: 'skedros',          label: 'Skedros family',            seed: 'greg_s'           },
+  { id: 'demitrios_g',      label: 'Demitrios Georgouses',      seed: 'demitrios_g'      },
+  { id: 'jc_georgouses',    label: 'John C. Georgouses',        seed: 'giannis_jc'       },
+  { id: 'avgares',          label: 'Avgares clan',              seed: 'evangelos_avg'    },
+  { id: 'kyriakis',         label: 'Kyriakis',                  seed: 'aspasia_k'        },
+  { id: 'panayioti_g',      label: 'Panayioti Georgouses',      seed: 'panayioti_g'      },
+  { id: 'nikolaou_g',       label: 'Nikolaou Georgouses',       seed: 'chris_g_nik'      },
+  { id: 'demetri_james_g',  label: 'Demetri James Georgouses',  seed: 'demetri_james_g'  },
+  { id: 'athanasios_tom_g', label: 'Athanasios Tom Georgouses', seed: 'athanasios_tom_g' },
+  { id: 'polizois_jim_g',   label: 'Polizois / Jim Georgouses', seed: 'jim_g_jim'        },
+];
+
 const BRANCH_LABELS = [
   {
     "y": 60,

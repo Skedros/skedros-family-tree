@@ -223,3 +223,54 @@ function buildSearchPanel({ onSelect, makeResultHTML }) {
   // Expose a close fn for callers who want to dismiss after selection
   return { open, close, render };
 }
+
+/* ============================================================================
+   CLUSTER ASSIGNMENT
+   ----------------------------------------------------------------------------
+   Each person is assigned to exactly one family-branch cluster. We do this
+   by BFS from a configured seed person, walking the marriages + descents
+   graph WITHOUT cross-cluster links — so each "branch" that the source only
+   loosely connects to the Skedros core (Demitrios Georgouses, JC Georgouses,
+   Avgares, etc.) remains its own cluster.
+
+   personCluster[id]  : cluster id string (e.g. 'skedros', 'avgares', 'other')
+   ========================================================================== */
+
+const strictGraph = {};
+function addStrictEdge(a, b) {
+  if (!a || !b) return;
+  if (!strictGraph[a]) strictGraph[a] = new Set();
+  if (!strictGraph[b]) strictGraph[b] = new Set();
+  strictGraph[a].add(b);
+  strictGraph[b].add(a);
+}
+(function buildStrictGraph() {
+  for (const [a, b] of marriages) addStrictEdge(a, b);
+  for (const d of descent) {
+    const parents = d.from.split('+');
+    for (const p of parents) addStrictEdge(p, d.to);
+  }
+  // NOTE: crossClusterLinks intentionally excluded — see file header.
+})();
+
+const personCluster = {};
+(function assignClusters() {
+  if (typeof CLUSTER_DEFS === 'undefined') return;
+  for (const def of CLUSTER_DEFS) {
+    if (!peopleMap[def.seed]) continue;
+    const queue = [def.seed];
+    const seen = new Set([def.seed]);
+    while (queue.length) {
+      const cur = queue.shift();
+      // Only stamp if not already in a cluster (first-come wins; ordering matters)
+      if (!(cur in personCluster)) personCluster[cur] = def.id;
+      for (const nb of strictGraph[cur] || []) {
+        if (!seen.has(nb)) { seen.add(nb); queue.push(nb); }
+      }
+    }
+  }
+  // Anyone left over → 'other' (orphan singletons, the Skedros grandfathers, etc.)
+  for (const p of people) {
+    if (!(p.id in personCluster)) personCluster[p.id] = 'other';
+  }
+})();

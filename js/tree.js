@@ -118,9 +118,17 @@ function sizeSvg() {
 }
 
 /* ---------- Lines (descent + marriage brackets) ---------- */
+// Predicate that decides whether a person id is currently visible.
+// Tree.js overwrites this when a cluster filter is applied.
+let isPersonVisible = (id) => true;
+
 function renderLines() {
+  // Clear any previous lines (so we can re-render on filter change)
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
   // Marriages: low bracket between the two cards
   for (const [aId, bId] of marriages) {
+    if (!isPersonVisible(aId) || !isPersonVisible(bId)) continue;
     const a = peopleMap[aId], b = peopleMap[bId];
     if (!a || !b) continue;
     const lineY = marriageLineY(a, b);
@@ -141,6 +149,9 @@ function renderLines() {
 
   // Descents: parent anchor → vertical drop → horizontal bus → vertical drop → child
   for (const d of descent) {
+    // Hide descents to a hidden child or where either parent is hidden
+    if (!isPersonVisible(d.to)) continue;
+    if (!d.from.split('+').every(isPersonVisible)) continue;
     const parent = resolveParentAnchor(d.from);
     if (!parent) continue;
     const child = peopleMap[d.to];
@@ -456,3 +467,102 @@ document.addEventListener('keydown', (e) => {
     searchPanel.open();
   }
 });
+
+/* ============================================================================
+   CLUSTER FILTER — branch tabs above the canvas
+   ----------------------------------------------------------------------------
+   Each tab corresponds to one CLUSTER_DEFS entry plus an "All families" tab.
+   When a cluster tab is clicked we:
+     - hide every person card that isn't in that cluster
+     - hide every branch label (otherwise they clutter the empty space)
+     - re-render the SVG lines so only intra-cluster connections appear
+     - auto-fit the viewport to the bounding box of the visible cards
+   ========================================================================== */
+
+(function setupClusterTabs() {
+  if (typeof CLUSTER_DEFS === 'undefined') return;
+  const bar = document.getElementById('cluster-tabs');
+  if (!bar) return;
+
+  // Inject one tab per cluster def alongside the "All families" tab
+  for (const def of CLUSTER_DEFS) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cluster-tab';
+    btn.dataset.cluster = def.id;
+    btn.textContent = def.label;
+    bar.appendChild(btn);
+  }
+
+  bar.addEventListener('click', (e) => {
+    const tab = e.target.closest('.cluster-tab');
+    if (!tab) return;
+    setActiveCluster(tab.dataset.cluster);
+  });
+})();
+
+function setActiveCluster(clusterId) {
+  // Update tab styling
+  document.querySelectorAll('.cluster-tab').forEach(el => {
+    el.classList.toggle('is-active', el.dataset.cluster === clusterId);
+  });
+
+  // Update visibility predicate used by renderLines
+  if (clusterId === 'all') {
+    isPersonVisible = (_id) => true;
+  } else {
+    isPersonVisible = (id) => personCluster[id] === clusterId;
+  }
+
+  // Hide / show cards
+  document.querySelectorAll('.person').forEach(el => {
+    el.style.display = isPersonVisible(el.dataset.id) ? '' : 'none';
+  });
+
+  // Hide branch labels when filtering, show all otherwise.
+  // (Branch labels don't map cleanly to clusters; they'd dangle in empty space.)
+  document.querySelectorAll('.branch-label').forEach(el => {
+    el.style.display = (clusterId === 'all') ? '' : 'none';
+  });
+
+  // Re-render the lines with the new predicate
+  renderLines();
+
+  // Close the detail panel and clear any highlights left over from the old view
+  closeDetail();
+
+  // Auto-fit the viewport to whatever's now visible
+  setTimeout(() => fitToVisible(clusterId), 30);
+}
+
+function fitToVisible(clusterId) {
+  // Collect bounding box of visible cards (or whole canvas if "all")
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const p of people) {
+    if (clusterId !== 'all' && personCluster[p.id] !== clusterId) continue;
+    if (p.x < minX) minX = p.x;
+    if (p.x > maxX) maxX = p.x;
+    if (p.y < minY) minY = p.y;
+    if (p.y > maxY) maxY = p.y;
+  }
+  if (!isFinite(minX)) { fitToScreen(); return; }
+
+  // Pad the bounding box for breathing room around the cards
+  const PAD = 220;
+  minX -= PAD; maxX += PAD; minY -= PAD; maxY += PAD;
+  const bw = maxX - minX, bh = maxY - minY;
+
+  const vw = viewport.offsetWidth;
+  const vh = viewport.offsetHeight;
+  const scale = Math.min(vw / bw, vh / bh);
+  state.scale = Math.max(state.minScale, Math.min(state.maxScale, scale));
+
+  const cx = minX + bw / 2;
+  const cy = minY + bh / 2;
+  state.x = vw / 2 - cx * state.scale;
+  state.y = vh / 2 - cy * state.scale;
+
+  canvasEl.style.transition = 'transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)';
+  applyTransform();
+  setTimeout(() => { canvasEl.style.transition = ''; }, 460);
+}
