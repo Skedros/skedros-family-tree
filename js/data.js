@@ -131,7 +131,7 @@ Father of Sophie. Like the rest of the Demetriades brothers he was part of the G
   { id: 'james_k',        name: 'Demetrios K. Skedros',  alt: 'James K. Skedros',          x: 2820, y: GY.III,
     bio: `Formally Demetrios K. Skedros — known throughout his life in America as "James" or "Mr. Jim." Born in Piraeus to Constantine Skedros and Eugenia Demetriades, one of twelve siblings; brother of Helen Skedros Rizos.
 
-Came to America before his sister Helen arrived in 1911 and was already established in Utah by then. He co-ran the Bingham drugstore with his brother-in-law Alec Rizos — Helen's husband — alternating months at the two stores to ease the back-and-forth between Salt Lake and the mining camp. Served in the military in 1912.
+Came to America before his sister Helen arrived in 1911 and was already established in Utah by then. He co-ran the Bingham drugstore with his brother-in-law Alex Rizos — Helen's husband — alternating months at the two stores to ease the back-and-forth between Salt Lake and the mining camp. Served in the military in 1912.
 
 Through his marriage to Angeline Limberiou he was the father of Con Skedros and Greg Skedros, and grandfather of the present-day Skedros family.` },
   { id: 'epaminondas',    name: 'Epaminondas',           note: 'died at 14, TB',           x: 3090, y: GY.III, deceasedYoung: true }, /* under evgenia */
@@ -141,9 +141,9 @@ Through his marriage to Angeline Limberiou he was the father of Con Skedros and 
 
 Her mother died around 1906 to 1909. Her father, secretly dying himself, arranged passage for Helen, her brother Taki and her younger sister to America under the pretext of a visit to relatives. They sailed from Piraeus on December 6, 1910 aboard the ship Patris — first or second class, a twelve-day crossing, brief stop in Gibraltar. They landed in New York before Christmas. Uncle Dan met them at the dock with train tickets to Chicago, so they avoided Ellis Island.
 
-After five months in Chicago she came west, arriving in Salt Lake City on May 21 or 22, 1911. She married Alexander C. Rizos in 1914 and spent a five-month honeymoon in Europe and Greece. They were in Liverpool the night Austria declared war on Serbia, and crossed the Austria-Serbia border by train without passports because Alec had checks for proof of means.
+After five months in Chicago she came west, arriving in Salt Lake City on May 21 or 22, 1911. She married Alexander C. Rizos in 1914 and spent a five-month honeymoon in Europe and Greece. They were in Liverpool the night Austria declared war on Serbia, and crossed the Austria-Serbia border by train without passports because Alex had checks for proof of means.
 
-She became a U.S. citizen automatically on May 24, 1920 when Alec was naturalized. They had one child, Dino, who died young. After his death she began going down to the drugstore to work alongside Alec. She volunteered with the Red Cross for twenty-five years, knitting twenty-five sweaters plus socks during World War II, and was personally awarded a service certificate by President Truman at the Lafayette Ballroom in Salt Lake. Belonged to the Philoptochos Society and the Greek American Progressive Association. Republican.
+She became a U.S. citizen automatically on May 24, 1920 when Alex was naturalized. They had one child, Dino, who died young. After his death she began going down to the drugstore to work alongside Alex. She volunteered with the Red Cross for twenty-five years, knitting twenty-five sweaters plus socks during World War II, and was personally awarded a service certificate by President Truman at the Lafayette Ballroom in Salt Lake. Belonged to the Philoptochos Society and the Greek American Progressive Association. Republican.
 
 She was interviewed for the Greek Archives at the University of Utah on November 20, 1974.` }, /* drop column free between dan_d/maria_d */
 /* ---------- The eight remaining children of Constantine S + Evgenia ----------
@@ -155,7 +155,7 @@ She was interviewed for the Greek Archives at the University of Utah on November
 
 Helen mentioned in 1974 that one of her brothers went to war — she could not remember whether it was the first war or the second — and described a friend of his who was so scared the night before shipping out that he did not come back. Whether the brother in question was Taki or another sibling, the transcript does not make fully clear.` },
   { id: 'skedros_sister_bingham', name: 'younger sister',        alt: 'name unrecorded',      note: 'came on the Patris with Helen and Taki; died of pneumonia in Bingham',  x: 4620, y: 1515, unknown: true,
-    bio: `Helen's youngest sister, who came to America with Helen and Taki on the Patris in late 1910 at the age of about seven or eight. After arriving in Utah she lived for a time with one of the aunts in Salt Lake, then with Helen up in Bingham, where Alec ran his second drugstore. She caught a cold that turned into pneumonia and died there. Helen referred to her only briefly in the 1974 interview and never said her name — only that "she got cold and turned in pneumonia and she died."` },
+    bio: `Helen's youngest sister, who came to America with Helen and Taki on the Patris in late 1910 at the age of about seven or eight. After arriving in Utah she lived for a time with one of the aunts in Salt Lake, then with Helen up in Bingham, where Alex ran his second drugstore. She caught a cold that turned into pneumonia and died there. Helen referred to her only briefly in the 1974 interview and never said her name — only that "she got cold and turned in pneumonia and she died."` },
   { id: 'iros_skedros',          name: 'Iros (?) Skedros',      alt: "transcribed only as 'the heroes'", note: 'brother who died in Chicago; name uncertain', x: 4890, y: 1515, unknown: true,
     bio: `A brother whose name survives in the 1974 transcript only as "the heroes" — most likely a transcription artifact for Iros, Eros, or Heros. Helen mentioned him in passing when asked whether any of her siblings had lived outside of Utah: "No, except the heroes. He died in Chicago." Nothing more is recorded about him in the surviving interview.` },
   { id: 'unnamed_sk_1',          name: 'Skedros child',         note: 'one of twelve; name unrecorded', x: 3000, y: 1515, unknown: true },
@@ -166,15 +166,15 @@ Helen mentioned in 1974 that one of her brothers went to war — she could not r
   { id: 'alexander_r',    name: 'Alexander C. Rizos',    note: 'm. Helen Skedros',         x: 4845, y: GY.III,
     bio: `Born September 29, 1882 in Athens. His family moved to Epirus when he was young because his many sisters needed raising there — he was the only boy in the family. Earned a chemistry diploma in Greece in 1902.
 
-Came to America that same year at age 23. Went to Chicago first because a Greek friend was already there and had promised to invest his $200 stake. The friend lost the money. Alec ate donuts and coffee for a long time and worked any job he could find, including slaughterhouse cleanup. He put himself through Northwestern University, graduating with a pharmacy degree on Wednesday, April 14, 1909. During summers he worked at the Demetriades uncles' candy store and restaurant in Omaha, Nebraska, where he became a beloved friend of Helen's family long before he ever met her.
+Came to America that same year at age 23. Went to Chicago first because a Greek friend was already there and had promised to invest his $200 stake. The friend lost the money. Alex ate donuts and coffee for a long time and worked any job he could find, including slaughterhouse cleanup. He put himself through Northwestern University, graduating with a pharmacy degree on Wednesday, April 14, 1909. During summers he worked at the Demetriades uncles' candy store and restaurant in Omaha, Nebraska, where he became a beloved friend of Helen's family long before he ever met her.
 
 He came to Utah in September 1909, worked at a Garfield drugstore for two or three months to qualify for his Utah license, then opened his own drugstore in October 1909 at 480 West 2nd South in Greek Town. He chose the location so that immigrants who didn't speak English could be helped — he served as informal pharmacist and translator for Slavs and other foreigners alongside the Greeks, often mixing the herb-and-folk remedies they remembered from their villages.
 
 Later he opened a second drugstore in Bingham, alternating months with his brother-in-law James K. Skedros to cover both stores. He bought his first car in 1915 to ease the back-and-forth. Became a U.S. citizen on May 24, 1920.
 
-He was a famously strong chess player. In a forty-board simultaneous exhibition against international grandmaster Samuel Reshevsky, Alec won his game; Reshevsky stopped in front of him and shook his hand. He died June 5, 1955.` },
+He was a famously strong chess player. In a forty-board simultaneous exhibition against international grandmaster Samuel Reshevsky, Alex won his game; Reshevsky stopped in front of him and shook his hand. He died June 5, 1955.` },
   { id: 'virginia_d',     name: 'Virginia',              note: "Andrina's daughter; Helen's cousin",  x: 5430, y: 1515,
-    bio: `Helen's first cousin — daughter of Aunt Andrina Demetriades. Mentioned throughout Helen's recollections as one of the Demetriades family in Salt Lake City. Helen marked her own transition into working at Alec's drugstore in part by Virginia's coming of age: "And after Virginia got married," Helen began going down to the store full time.` },
+    bio: `Helen's first cousin — daughter of Aunt Andrina Demetriades. Mentioned throughout Helen's recollections as one of the Demetriades family in Salt Lake City. Helen marked her own transition into working at Alex's drugstore in part by Virginia's coming of age: "And after Virginia got married," Helen began going down to the store full time.` },
   { id: 'sophie_d',       name: 'Sophie',                note: "Ben's daughter; Helen's cousin",      x: 5700, y: 1515,
     bio: `Helen's first cousin — daughter of Uncle Ben Demetriades. When Helen first arrived in Salt Lake in 1911 she said "the only family I remember" by name from that time was Sophie's mother — Ben's wife. Sophie grew up within the close-knit Demetriades community that had clustered in Utah after the Omaha years.` },
 
@@ -201,9 +201,9 @@ He was a famously strong chess player. In a forty-board simultaneous exhibition 
      off-row vertical bracket. */
   { id: 'angeline_l',     name: 'Angeline Limberiou',    alt: 'Syros',                     x: 2820, y: GY.IV },
   { id: 'dino_r',         name: 'Constantine Rizos',     alt: 'Dino',                      x: 5700, y: GY.IV,
-    bio: `Only child of Helen Skedros Rizos and Alexander C. Rizos. Formally Constantine after Alec's father, but always called Dino. Died young.
+    bio: `Only child of Helen Skedros Rizos and Alexander C. Rizos. Formally Constantine after Alex's father, but always called Dino. Died young.
 
-After his death Helen began going down to the drugstore to work alongside Alec, and recalled one of her first days: a customer came in asking for "Durham" and she didn't know what it was. She ran to ask Alec — "What is Durham?" — and he answered "Look there, you'll find it." She found Bull Durham loose tobacco on the shelf, sold it, and learned the trade from there.` },
+After his death Helen began going down to the drugstore to work alongside Alex, and recalled one of her first days: a customer came in asking for "Durham" and she didn't know what it was. She ran to ask Alex — "What is Durham?" — and he answered "Look there, you'll find it." She found Bull Durham loose tobacco on the shelf, sold it, and learned the trade from there.` },
 
   /* Children of James K + Angeline */
   { id: 'con_s',          name: 'Con Skedros',                                             x: 2550, y: GY.IV },
